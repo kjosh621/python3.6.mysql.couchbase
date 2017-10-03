@@ -13,21 +13,31 @@ RUN \
   apt-get install -y vim wget curl bash-completion
 
 
-# Install python 3.6 & mysql-connector
+# Install python 3.6 
 RUN \
   add-apt-repository ppa:jonathonf/python-3.6 && \
   apt-get update && \
-  apt-get install -y python-pip python3.6 && \
-  pip install mysql-connector-python-rf
+  apt-get install -y python3.6 python3.6-dev && \
+  rm -f /usr/bin/python && ln -s /usr/bin/python3.6 /usr/bin/python
+
+# Install python pip
+RUN wget https://bootstrap.pypa.io/get-pip.py && \
+  python get-pip.py && \
+  rm -f /usr/bin/pip && ln -s /usr/local/bin/pip /usr/bin/pip && \
+  rm get-pip.py
+  
+# Install mysql connector for python
+RUN pip install mysql-connector-python-rf
 
 # Install couchbase dev tools
 RUN wget http://packages.couchbase.com/releases/couchbase-release/couchbase-release-1.0-2-amd64.deb && \
   dpkg -i couchbase-release-1.0-2-amd64.deb && \
   apt-get update && \
-  apt-get -y install libcouchbase-dev build-essential python-dev python-pip && pip install couchbase && \
+  apt-get -y install libcouchbase-dev build-essential && \
+  pip install couchbase && \
+  rm couchbase-release-1.0-2-amd64.deb && \
   rm -rf /var/lib/apt/lists/*
 
-RUN rm /usr/bin/python && ln -s /usr/bin/python3.6 /usr/bin/python
 
 CMD ["python"]
 
