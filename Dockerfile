@@ -27,7 +27,7 @@ RUN wget http://packages.couchbase.com/releases/couchbase-release/couchbase-rele
   apt-get -y install libcouchbase-dev build-essential python-dev python-pip && pip install couchbase && \
   rm -rf /var/lib/apt/lists/*
 
-RUN rm /usr/bin/python && ln -s /usr/local/bin/python /usr/bin/python
+RUN rm /usr/bin/python && ln -s /usr/bin/python3.6 /usr/bin/python
 
 WORKDIR /opt/warming_engine
 
