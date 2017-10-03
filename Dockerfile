@@ -29,7 +29,5 @@ RUN wget http://packages.couchbase.com/releases/couchbase-release/couchbase-rele
 
 RUN rm /usr/bin/python && ln -s /usr/bin/python3.6 /usr/bin/python
 
-WORKDIR /opt/warming_engine
-
 CMD ["python"]
 
